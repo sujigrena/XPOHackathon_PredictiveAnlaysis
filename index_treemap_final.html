@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <link type="text/css" rel="stylesheet" href="style.css"/>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="d3.v3.min.js"></script>
     <style type="text/css">
 
 .chart {
@@ -49,45 +49,79 @@ var treemap = d3.layout.treemap()
     .round(false)
     .size([w, h])
     .sticky(true)
-//    .value(function(d) { return d["好き度"]; });
     .value(function(d) { return d.total; });
 
 var svg = d3.select("#body").append("div")
     .attr("class", "chart")
     .style("width", w + "px")
     .style("height", h + "px")
-  .append("svg:svg")
+    .append("svg:svg")
     .attr("width", w)
     .attr("height", h)
-  .append("svg:g")
-    .attr("transform", "translate(.5,.5)");
+    .append("svg:g")
+    //.attr("transform", "translate(.5,.5)");
 
 //d3.json("kinoko_takenoko.json", function(data) {
 d3.json("party_asset.json", function(data) {
-  node = root = data;
-  console.log(data);
+ node = root = data;
+  //console.log(data);
   var nodes = treemap.nodes(root)
       .filter(function(d) {return !d.children; });
 
   var cell = svg.selectAll("g")
       .data(nodes)
-    .enter().append("svg:g")
+      .enter().append("svg:g")
       .attr("class", "cell")
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-      .on("click", function(d) { return zoom(node == d.parent ? root : d.parent); });
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+      //.on("click", function(d) { return zoom(node == d.parent ? root : d.parent); });
 
-  cell.append("svg:rect")
+var my_pattern =  "";
+//console.log(my_pattern)
+
+
+  cell.append("rect")
       .attr("width", function(d) { return d.dx - 1; })
       .attr("height", function(d) { return d.dy - 1; })
-      .style("fill", function(d) {return color(d.parent.name); });
+      .attr('background-size', 'contain')
+      //.attr("id", function(d) { return d.name; })
+    //.attr("class", this.currentAlarmClass_s)
+    .style("fill", function(d) { return "url(#"+d.name+")"; });
+     // .style("fill", function(d) {return color(d.parent.name); });
 
- cell.append("svg:image")
+
+cell.append("defs").append("pattern")
+.attr("id", function(d) { return d.name; })
+.attr("width", "100%")
+.attr("height", function(d) { return d.dy - 1; })
+.attr('patternUnits', 'userSpaceOnUse')
+//.attr('background-size', 'contain')
+.append("image")
+.attr("preserveAspectRatio", "none")
+.attr("xmlns:xlink","http://www.w3.org/1999/xlink")
+.attr("width",function(d) { return d.dx - 1; })
+.attr("height", function(d) { return d.dy - 1; })
+.attr("xlink:href", function(d) { return d.img ;});
+//.attr('background-repeat', 'no-repeat')
+//.attr('background-size', 'contain')
+
+
+/*rectangle=svg.selectAll("rect")
+      .append("svg:image")
+      .attr("xlink:href",  function(d) { return d.img;})
+	.attr("x", function(d) {d.dx - 1; })
+        .attr("y", function(d) { d.dy - 1; })
+      .attr("width", function(d) { return d.dx - 1; })
+      .attr("height", function(d) { return d.dy - 1; });*/
+
+
+ /*cell.append("svg:image")
       .attr("xlink:href",  function(d) { return d.img;})
 	.attr("x", function(d) {d.dx - 1; })
         .attr("y", function(d) { d.dy - 1; })
       .attr("width", function(d) { return d.dx - 1; })
       .attr("height", function(d) { return d.dy - 1; });
-      //.style("fill", function(d) {return d.img; });
+	//.attr("background-size", '250px 150px');
+      //.style("fill", function(d) {return d.img; });*/
 
   cell.append("svg:text")
       .attr("x", function(d) { return d.dx / 2; })
