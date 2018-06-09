@@ -1,40 +1,30 @@
 {
-"name":"diet",
-"children":
-	[
-		{
 		"name":"A党",
 		"children":
 			[
 				{
 				 "name": "pesonA",
-				 "total":"1",
-"img":  "http://127.0.0.1:8080/images.jpeg"
+				 "total":"10",
+"img":  "http://127.0.0.1:8080/images/images.jpeg"
 				},
 				{
 				 "name": "pesonB",
-				 "total":"10",
-"img":  "http://127.0.0.1:8080/index1.jpeg"
+				 "total":"100",
+"img":  "http://127.0.0.1:8080/images/index1.jpeg"
 				},
 {
 
 				 "name": "pesonC",
-				 "ground":"200",
-				 "building":"10",
-				 "cash":"100",
-				 "total":"1",
-"img":  "http://127.0.0.1:8080/index.jpeg"
+				 "total":"25",
+"img":  "http://127.0.0.1:8080/images/index.jpeg"
 				},
 				{
 				 "name": "pesonD",
-				 "ground":"50",
-				 "building":"30",
-				 "cash":"10",
-				 "total":"1",
-"img":  "http://127.0.0.1:8080/hib.jpg"
+				 "total":"11",
+"img":  "http://127.0.0.1:8080/images/hib.jpg"
 				}
 			]
 		}
-	]
-}
+
+
 
